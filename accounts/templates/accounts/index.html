@@ -1,0 +1,159 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clientes Base</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static '/css/main.css' %}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+          <img src="{% static 'images/balvin.png' %}"  class='balvin' alt="">
+          <a class="navbar-brand" href="#">Clz</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+             
+              {%if request.user.is_staff%}
+
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'home'%}">Inicio</a>
+              </li>
+              
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'products' %}">Productos</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'login' %}">Ingresar</a>
+              </li>
+
+              
+              {%endif%}
+              {% if user.is_authenticated %}
+
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'settings' %}">Ajustes</a>
+              </li>
+            
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}">Salir</a>
+              </li>
+
+              
+                <span><a class="nav-link">Hola, {{request.user}}</a></span>
+             
+
+
+                
+              {% endif %}
+          
+            </ul>
+          </div>
+        </div>
+      </nav>
+</body>
+</html>
+
+{%block content%}
+<div class="container p-5">
+  <div class="row">
+
+    
+  
+
+    <div class="col-md-5">
+      <h5>Clientes</h5>
+    
+      <div class="card-body">
+        <a href="{%  url 'create_customer' %}" class=" btn  btn-primary btn-sm btn-block">Crear un cliente</a>
+        <table class="table table-sm">
+          <tr>
+            <th></th>
+            <th>Cliente</th>
+            <th>Telefono</th>
+            
+    
+          </tr>
+          {%for i in clients%}
+          <tr>
+            <th><a href="{% url 'customers' i.id%}" class="btn btn-sm btn-primary">Consultar</a></th>
+            <th>{{i.name}}</th>
+            <th>{{i.phone}}</th>
+          </tr>
+          {%endfor%}
+    
+        </table>
+      </div>
+    
+    
+    </div>
+    
+    
+    <div class="col-md-7">
+      <h5>Ordenes</h5>
+      <div class="card-body">
+       
+        <table class="table table-sm">
+          <tr>
+    
+            <th>Producto</th>
+            <th>Fecha</th>
+            <th>Estado</th>
+            <th>Actualizar</th>
+            <th>Eliminar</th>
+    
+          </tr>
+          {%for x in orders%}
+          <tr>
+            <th>{{x.product}}</th>
+            <th>{{x.date_created}}</th>
+            <th>{{x.status}}</th>
+            <th><a href="{%  url 'update_order' x.id %}" class="btn btn-primary">Actualizar</a> </th>
+            <th> <a href="{% url 'delete_order' x.id%}" class="btn btn-danger">Eliminar</a> </th>
+          </tr>
+          {%endfor%}
+    
+        </table>
+      </div>
+    
+    
+    
+    
+    </div>
+    
+    </div>
+    
+    
+</div>
+
+{% include "status.html" %}
+
+{%endblock%}
+
+
+
+<footer class="bg-dark">
+  <ul class="nav container">
+    <li class="nav-item">
+      <a class="nav-link active" aria-current="page" href="#">Active</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Link</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Link</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+    </li>
+  </ul>
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>

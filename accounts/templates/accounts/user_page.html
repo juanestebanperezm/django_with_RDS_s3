@@ -1,0 +1,37 @@
+{% extends "index.html" %}
+
+
+{%block content%}
+{% include "status.html" %}
+
+
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<table class="table table-sm">
+				
+				<tr>
+					<th>Producto</th>
+					<th>Notas</th>
+					<th>Fecha de orden</th>
+					<th>Estado</th>
+		
+				</tr>
+				{%for z in orders%}
+
+				<tr>
+					<th>{{z.product}}</th>
+					<th>{{z.note}}</th>
+					<th>{{z.product.date_created}}</th>
+					<th>{{z.product.status}}</th>
+
+				</tr>
+
+				{%endfor%}
+
+			</table>
+		</div>
+	</div>
+</div>
+
+{%endblock%}

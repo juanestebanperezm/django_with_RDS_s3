@@ -1,0 +1,87 @@
+{% extends "index.html" %}
+
+{%block content%}
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>Cliente:</h5>
+			<hr>
+			<a class="btn btn-outline-info  btn-sm btn-block" href="">Actualizar datos de cliente</a>
+			
+			
+			<a class="btn btn-outline-primary  btn-sm btn-block" href="{% url 'create_order' clients.id %}">Crear orden </a>
+
+			
+			  
+			
+
+		</div>
+	</div>
+
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>Informacion de contacto</h5>
+			<hr>
+			<p>Email:{{clients.email}} </p>
+			<p>Telefono: {{clients.phone}} </p>
+		</div>
+	</div>
+
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>Ordenes totales</h5>
+			<hr>
+			<h1 style="text-align: center;padding: 10px">{{orders_count}}</h1>
+		</div>
+	</div>
+</div>
+
+
+<br>
+<div class="row">
+	<div class="col">
+		<div class="card card-body">
+			<form method="get">
+
+				{{miFiltro.form}}
+
+		    <button class="btn btn-primary" type="submit">Buscar</button>
+		  </form>
+		</div>
+	</div>
+	
+</div>
+<br>
+
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<table class="table table-sm">
+				
+				<tr>
+					<th>Producto</th>
+					<th>Notas</th>
+					<th>Fecha de orden</th>
+					<th>Estado</th>
+					<th>Actualizar</th>
+					<th>Eliminar</th>
+				</tr>
+				{%for z in orders%}
+
+				<tr>
+					<th>{{z.product}}</th>
+					<th>{{z.note}}</th>
+					<th>{{z.product.date_created}}</th>
+					<th>{{z.product.status}}</th>
+					<th><a href="{% url 'update_customer' z.id %}" class="btn btn-primary">Actualizar</a></th>
+					<th><a href="{%  url 'delete_customer' z.id %}" class="btn btn-danger">Eliminar</a></th>
+				</tr>
+
+				{%endfor%}
+
+			</table>
+		</div>
+	</div>
+</div>
+
+{%endblock%}
